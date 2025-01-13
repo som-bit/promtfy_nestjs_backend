@@ -40,6 +40,14 @@ export class User extends BaseEntity {
   })
   image: string;
 
+
+  @Column({
+    type: 'varchar',
+    nullable: false,
+    comment: 'The password of the user',
+  })
+  password: string; // Password field for authentication
+
   @OneToMany(() => Prompt, (prompt) => prompt.creator)
   prompts: Prompt[]; // Establishes a one-to-many relationship
 }

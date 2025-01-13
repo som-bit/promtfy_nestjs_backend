@@ -5,6 +5,7 @@ import {
   IsOptional,
   Length,
   Matches,
+  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -25,4 +26,10 @@ export class CreateUserDto {
   @IsOptional()
   @IsNotEmpty({ message: 'Image URL cannot be empty if provided.' })
   image: string;
+
+
+
+  @IsNotEmpty()
+  @MinLength(6) // Ensure password has a minimum length
+  password: string;
 }

@@ -11,10 +11,14 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/CreateUser.dto';
+import { AuthService } from '../auth/auth.services';
 
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService, // Inject the AuthService here
+  ) {}
 
   @Get('/')
   getAllQuiz() {
@@ -26,6 +30,14 @@ export class UserController {
   @UsePipes(ValidationPipe)
   async createUser(@Body() userData: CreateUserDto) {
     return await this.userService.createNewUser(userData);
+  }
+
+  @Post('/login')
+  async loginUser(
+    @Body('email') email: string,
+    @Body('password') password: string,
+  ) {
+    return await this.authService.login(email, password);
   }
 
   @Get('/findByName/:username')

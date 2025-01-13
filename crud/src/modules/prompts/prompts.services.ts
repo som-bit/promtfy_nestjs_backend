@@ -21,6 +21,7 @@ export class PromptService {
 
     const creator = await this.userRepository.findOne({
       where: { id: creatorId },
+      select: ['id', 'username', 'email','image'], 
     });
     if (!creator) {
       throw new NotFoundException(`User with ID ${creatorId} not found`);
